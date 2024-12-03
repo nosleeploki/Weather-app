@@ -1,0 +1,109 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg">
+
+    <!-- Tiêu đề -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="47dp"
+        android:paddingHorizontal="24dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/labelHeader1"
+            android:layout_width="362dp"
+            android:layout_height="48dp"
+            android:fontFamily="@font/baloo_bhai"
+            android:gravity="start"
+            android:text="Welcome"
+            android:textColor="#535EA6"
+
+            android:textSize="36sp" />
+
+        <TextView
+            android:id="@+id/labelHeader2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/baloo_bhai"
+            android:text="Back"
+            android:textColor="#535EA6"
+            android:textSize="36sp"
+            android:gravity="start" />
+
+        <TextView
+            android:id="@+id/label1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hey, Good to see you again!"
+            android:textColor="#535EA6"
+            android:textSize="16sp"
+            android:gravity="start" />
+    </LinearLayout>
+
+    <!-- Phần nhập thông tin -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="270dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp">
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:background="@drawable/style_edit_text"
+            android:hint="Username"
+            android:padding="12dp" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:background="@drawable/style_edit_text"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="12dp" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="8dp"
+            android:buttonTint="@color/checkbox_color"
+            android:text="Remember me"
+            android:textColorLink="#928F8F"
+            app:centerIfNoTextEnabled="false" />
+
+        <TextView
+            android:id="@+id/register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="8dp"
+            android:text="Don't have an account? Sign up"
+            android:textColor="#535EA6"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#535EA6"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="Sign In"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+</RelativeLayout>
