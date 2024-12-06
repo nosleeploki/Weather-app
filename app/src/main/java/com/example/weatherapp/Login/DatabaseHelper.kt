@@ -1,9 +1,12 @@
+package com.example.weatherapp.Login
+
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -94,5 +97,23 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val password: String,
         val createdAt: String
     )
+
+    fun isUsernameOrPhoneExist(username: String, phone: String): Boolean {
+        val db = this.readableDatabase
+        val cursor = db.query(
+            TABLE_NAME,
+            arrayOf(COLUMN_ID),
+            "$COLUMN_USERNAME=? OR $COLUMN_PHONE=?",
+            arrayOf(username, phone),
+            null,
+            null,
+            null
+        )
+
+        val exists = cursor.count > 0
+        cursor.close()
+        db.close()
+        return exists
+    }
 
 }

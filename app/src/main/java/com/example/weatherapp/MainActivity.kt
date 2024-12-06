@@ -1,6 +1,5 @@
 package com.example.weatherapp
 
-import DatabaseHelper
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -8,14 +7,14 @@ import android.os.Bundle
 import android.text.TextUtils
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.lifecycle.ReportFragment.Companion.reportFragment
+import com.example.weatherapp.Login.DatabaseHelper
+import com.example.weatherapp.Login.RegisterActivity
+import com.example.weatherapp.Weather.Data.HomeActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,6 +41,11 @@ class MainActivity : AppCompatActivity() {
                 checkBox.isChecked = true // Tự động đánh dấu "Remember me" nếu có username
             }
 
+            registerTextView.setOnClickListener {
+                val intent = Intent(this, RegisterActivity::class.java)
+                startActivity(intent)
+            }
+
             loginButton.setOnClickListener {
                 val username = usernameEditText.text.toString()
                 val password = passwordEditText.text.toString()
@@ -57,26 +61,12 @@ class MainActivity : AppCompatActivity() {
                         editor.putString("username", username)
                         editor.apply()
                         Toast.makeText(this, "Login Success!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, MainActivity::class.java)
+                        val intent = Intent(this, HomeActivity::class.java)
                         startActivity(intent)
-                        finish()
-                    } else {
-                        Toast.makeText(
-                            this,
-                            "Wrong username or password, please try again!",
-                            Toast.LENGTH_SHORT
-                        ).show()
                     }
+                } else {
+                    Toast.makeText(this,"Wrong username or password, please try again!",Toast.LENGTH_SHORT).show()
                 }
-
-
-
-                registerTextView.setOnClickListener {
-                    val intent = Intent(this, RegisterActivity::class.java)
-                    startActivity(intent)
-                    //Logic dang ky
-                }
-
             }
         }
     }
