@@ -68,6 +68,11 @@ dependencies {
     implementation ("com.google.android.gms:play-services-location:19.0.1")
 
     //Coroutine
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0") // Thay phiên bản nếu cần
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
+
+    //get api google map
+    implementation ("com.google.android.gms:play-services-location:21.0.1")
+
+
 
 }

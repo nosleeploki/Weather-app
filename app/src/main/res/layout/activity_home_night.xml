@@ -5,7 +5,7 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg">
+    android:background="@drawable/nightbg">
 
     <!-- Nội dung chính của Activity -->
     <RelativeLayout
@@ -20,8 +20,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:background="#99bad8"
-
             android:padding="16dp">
 
             <EditText
@@ -31,7 +29,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:hint="🔎 Search location"
-                android:padding="8dp" />
+                android:padding="8dp"
+                android:textColor="#D3CCCC"
+                android:textColorHighlight="#CEC8C8"
+                android:textColorHint="#DCDADA" />
 
             <ImageView
                 android:id="@+id/ivMenu"
@@ -39,7 +40,8 @@
                 android:layout_height="32dp"
                 android:layout_marginStart="8dp"
                 android:contentDescription="Menu"
-                android:foreground="@drawable/more" />
+                android:foreground="@drawable/more"
+                android:foregroundTint="#F6F6F6" />
         </LinearLayout>
 
         <!-- CardView hiển thị thông tin thời tiết hiện tại -->
@@ -60,7 +62,7 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="40dp"
-               >
+                >
 
 
                 <TextView
@@ -177,7 +179,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/currentWeatherCard"
             android:layout_marginTop="20dp"
-            android:background="#b5dbff"
+            android:textColor="#ffffff"
+            android:background="#9e9797"
             android:scrollbars="none"
             >
 
@@ -218,13 +221,14 @@
                 android:text="◌"
                 android:textAlignment="center"
                 android:textSize="20sp"
+                android:textColor="#ffffff"
                 android:padding="6dp"
-                android:background="#b5dbff"
+                android:background="#9e9797"
                 android:shadowColor="#000000"
                 android:shadowDx="2"
                 android:shadowDy="2"
                 android:shadowRadius="4"
-            />
+                />
 
 
             <TextView
@@ -234,10 +238,11 @@
                 android:layout_height="wrap_content"
                 android:text="◌"
                 android:textAlignment="center"
+                android:textColor="#ffffff"
 
                 android:textSize="20sp"
                 android:padding="6dp"
-                android:background="#b5dbff"
+                android:background="#9e9797"
                 android:shadowColor="#000000"
                 android:shadowDx="2"
                 android:shadowDy="2"
@@ -250,10 +255,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
+                android:textColor="#ffffff"
                 android:text="◌"
                 android:textSize="20sp"
                 android:padding="6dp"
-                android:background="#b5dbff"
+                android:background="#9e9797"
                 android:shadowColor="#000000"
                 android:shadowDx="2"
                 android:shadowDy="2"
@@ -264,11 +270,12 @@
                 android:layout_marginTop="2sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#ffffff"
                 android:text="◌"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:padding="6dp"
-                android:background="#b5dbff"
+                android:background="#9e9797"
                 android:shadowColor="#000000"
                 android:shadowDx="2"
                 android:shadowDy="2"
@@ -279,11 +286,12 @@
                 android:id="@+id/dailyTemp5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#ffffff"
                 android:text="◌"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 android:padding="6dp"
-                android:background="#b5dbff"
+                android:background="#9e9797"
                 android:shadowColor="#000000"
                 android:shadowDx="2"
                 android:shadowDy="2"

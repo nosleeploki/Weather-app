@@ -1,0 +1,11 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Lớp đổ bóng -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#80FFFFFF" /> <!-- Màu sáng nhẹ -->
+            <corners android:radius="50dp" /> <!-- Bo tròn góc -->
+        </shape>
+    </item>
+    <!-- Lớp nền -->
+    <item android:drawable="@drawable/mylocation" />
+</layer-list>

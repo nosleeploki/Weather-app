@@ -9,7 +9,15 @@ interface WeatherApiService {
     @GET("data/2.5/weather")
     fun getCurrentWeather(
         @Query("q") city: String,         // Thành phố
-        @Query("cf91be677ee47654898a53d6f6d6d887") apiKey: String,  // API Key
+        @Query("appid") apiKey: String,  // API Key
         @Query("units") units: String = "metric" // Đơn vị: Celsius
     ): Call<WeatherResponse>
+
+    @GET("data/2.5/forecast")
+    fun getWeatherForecastByCoordinates(
+        @Query("lat") lat: Double,
+        @Query("lon") lon: Double,
+        @Query("appid") apiKey: String,  // API Key
+        @Query("units") units: String = "metric" // Đơn vị: Celsius
+    ): Call<ForecastResponse>  // Dự báo theo tọa độ
 }

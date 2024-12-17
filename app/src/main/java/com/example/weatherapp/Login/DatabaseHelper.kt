@@ -35,13 +35,96 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             )
         """.trimIndent()
         db?.execSQL(createTableQuery)
+
+        // Tạo bảng cho địa điểm yêu thích
+        val createFavoritesTableQuery = """
+        CREATE TABLE user_favorites (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER,
+            location_name TEXT,
+            latitude REAL,
+            longitude REAL,
+            FOREIGN KEY(user_id) REFERENCES users(id)
+        );
+    """.trimIndent()
+        db?.execSQL(createFavoritesTableQuery)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        if (oldVersion < 2) {
-            db?.execSQL("ALTER TABLE $TABLE_NAME ADD COLUMN $COLUMN_CREATED_AT TEXT")
+        // Nếu phiên bản >= 2, thêm bảng yêu thích
+        if (oldVersion < 3) {
+            val createFavoritesTableQuery = """
+            CREATE TABLE user_favorites (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER,
+                location_name TEXT,
+                latitude REAL,
+                longitude REAL,
+                FOREIGN KEY(user_id) REFERENCES users(id)
+            );
+        """.trimIndent()
+            db?.execSQL(createFavoritesTableQuery)
         }
     }
+
+    // Thêm địa điểm yêu thích
+    fun addFavoriteLocation(userId: Int, locationName: String, latitude: Double, longitude: Double): Boolean {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put("user_id", userId)
+            put("location_name", locationName)
+            put("latitude", latitude)
+            put("longitude", longitude)
+        }
+        val result = db.insert("user_favorites", null, values)
+        return result != -1L
+    }
+
+    // Lấy danh sách địa điểm yêu thích của người dùng
+    fun getFavoriteLocations(userId: Int): List<FavoriteLocation> {
+        val db = readableDatabase
+        val cursor = db.query(
+            "user_favorites",
+            arrayOf("id", "location_name", "latitude", "longitude"),
+            "user_id=?",
+            arrayOf(userId.toString()),
+            null,
+            null,
+            null
+        )
+
+        val favorites = mutableListOf<FavoriteLocation>()
+        while (cursor.moveToNext()) {
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
+            val locationName = cursor.getString(cursor.getColumnIndexOrThrow("location_name"))
+            val latitude = cursor.getDouble(cursor.getColumnIndexOrThrow("latitude"))
+            val longitude = cursor.getDouble(cursor.getColumnIndexOrThrow("longitude"))
+            favorites.add(FavoriteLocation(id, locationName, latitude, longitude))
+        }
+        cursor.close()
+        db.close()
+        return favorites
+    }
+
+    // Xóa địa điểm yêu thích
+    fun removeFavoriteLocation(userId: Int, locationName: String): Boolean {
+        val db = writableDatabase
+        val result = db.delete(
+            "user_favorites",
+            "user_id=? AND location_name=?",
+            arrayOf(userId.toString(), locationName)
+        )
+        return result > 0
+    }
+
+    // Lớp dữ liệu cho địa điểm yêu thích
+    data class FavoriteLocation(
+        val id: Int,
+        val locationName: String,
+        val latitude: Double,
+        val longitude: Double
+    )
+
 
     fun insertUser(name: String, username: String, phone: String, password: String): Boolean {
         val db = writableDatabase

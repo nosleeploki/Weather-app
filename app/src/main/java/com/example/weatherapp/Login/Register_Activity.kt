@@ -41,23 +41,6 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    fun encryptPasswordMD5(password: String): String {
-        try {
-            val digest = MessageDigest.getInstance("MD5")
-            val hash = digest.digest(password.toByteArray())
-            val hexString = StringBuilder()
-            for (b in hash) {
-                val hex = Integer.toHexString(0xff and b.toInt())
-                if (hex.length == 1) hexString.append('0')
-                hexString.append(hex)
-            }
-            return hexString.toString()
-        } catch (e: NoSuchAlgorithmException) {
-            e.printStackTrace()
-        }
-        return password // Trả về mật khẩu gốc nếu có lỗi
-    }
-
     private fun handleSignUp(nameEditText: EditText, usernameEditText: EditText, phoneEditText: EditText, passwordEditText: EditText, termsCheckBox: CheckBox) {
         val name = nameEditText.text.toString().trim()
         val username = usernameEditText.text.toString().trim()
@@ -65,8 +48,37 @@ class RegisterActivity : AppCompatActivity() {
         val password = passwordEditText.text.toString().trim()
 
         // Kiểm tra trường trống
-        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(username) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "All fields are required!", Toast.LENGTH_SHORT).show()
+        if (TextUtils.isEmpty(name)) {
+            nameEditText.error = "Name is required"
+            return
+        }
+        if (TextUtils.isEmpty(username)) {
+            usernameEditText.error = "Username is required"
+            return
+        }
+        if (TextUtils.isEmpty(phone)) {
+            phoneEditText.error = "Phone number is required"
+            return
+        }
+        if (TextUtils.isEmpty(password)) {
+            passwordEditText.error = "Password is required"
+            return
+        }
+
+        // Kiểm tra độ dài username và password
+        if (username.length < 6 || username.length > 30) {
+            usernameEditText.error = "Username must be between 6 and 30 characters"
+            return
+        }
+
+        if (password.length < 6 || password.length > 30) {
+            passwordEditText.error = "Password must be between 6 and 30 characters"
+            return
+        }
+
+        // Kiểm tra độ dài số điện thoại
+        if (phone.length != 10) {
+            phoneEditText.error = "Phone number must be 10 numbers"
             return
         }
 
@@ -82,11 +94,8 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        // Mã hóa mật khẩu bằng MD5
-        val encryptedPassword = encryptPasswordMD5(password)
-
-        // Thêm người dùng vào cơ sở dữ liệu
-        val isInserted = databaseHelper.insertUser(name, username, phone, encryptedPassword)
+        // Lưu mật khẩu mà không mã hóa
+        val isInserted = databaseHelper.insertUser(name, username, phone, password)
 
         if (isInserted) {
             Toast.makeText(this, "Sign up successful!", Toast.LENGTH_SHORT).show()
